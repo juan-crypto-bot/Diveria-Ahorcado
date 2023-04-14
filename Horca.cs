@@ -15,7 +15,7 @@ namespace Ahorcado{
             for(int i=0; i<_secretWord.Length; i++){
                 _secretWord[i] = '_';
             }
-            Console.WriteLine("La palabra oculta es: " + new string('_', _word.significado.Length));
+            //Console.WriteLine("La palabra oculta es: " + new string('_', _word.significado.Length));
             this.building(_secretWord, _word.significado);
         }
         
@@ -31,10 +31,13 @@ namespace Ahorcado{
             List<char> usedLetter = new List<char>();
             //char letraSeleccionada;
             do{
+                Console.WriteLine(sw);
+                this.showUsed(usedLetter);
                 char letraSeleccionada = _player.ingresarLetra();
                 if(usedLetter.Contains(letraSeleccionada)){
                     Console.WriteLine("Letra ya usada, seleccione otra por favor");
-                    break;
+                    Thread.Sleep(1500);
+                    //break;
                     //letraSeleccionada = _player.ingresarLetra();
                 }
                 else{
@@ -49,17 +52,19 @@ namespace Ahorcado{
                         }
                     }
                     if(acerto){
+                        Console.WriteLine("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
                         Console.WriteLine("ACERTO!!");
                         //Console.WriteLine("");
-                        Console.WriteLine("Vidas restantes " +lifes);
+                        Console.WriteLine("Vidas restantes: " +lifes);
                     }
                     if(!acerto){
                         lifes--;
+                        Console.WriteLine("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
                         Console.WriteLine("HA FALLADO");
                         //Console.WriteLine("");
-                        Console.WriteLine("Vidas restantes " +lifes);
+                        Console.WriteLine("Vidas restantes: " +lifes);
                     }
-                    Console.WriteLine(sw);
+                    //Console.WriteLine(sw);
                     if(_hits==wd.Length) {
                         Thread.Sleep(1500);
                         Console.WriteLine("Felicidades ha ganado el juego");
@@ -73,6 +78,14 @@ namespace Ahorcado{
                     Thread.Sleep(1500);
                     Console.WriteLine("Lo sentimos, ha perdido el juego");
                 }
+        }
+
+        private void showUsed(List<char> ul){
+            Console.WriteLine("Letras que ya fueron usadas: ");
+            foreach(var i in ul){
+                Console.Write(" " + i + " ");
+            }
+            Console.WriteLine(" ");
         }
     }
 }
